@@ -1,7 +1,8 @@
 import React from 'react';
 import { FaLocationArrow } from "react-icons/fa"
 import { motion } from "framer-motion"
-const ProductCard = () => {
+const ProductCard = ({ product }) => {
+    const {} = product;
     return (
         <motion.div className="focus:outline-none mx-2 w-72 xl:mb-0 mb-8 rounded-md"
             whileHover={{ scale: 1.1 }}

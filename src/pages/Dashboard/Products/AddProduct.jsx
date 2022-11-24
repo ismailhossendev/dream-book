@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { useQuery } from 'react-query';
 import { mainContext } from '../../../Contexts/MainContext';
-
+import { format } from 'date-fns';
 const AddProduct = () => {
     const { register, handleSubmit, reset } = useForm();
     const { user } = useContext(mainContext);
@@ -23,6 +23,7 @@ const AddProduct = () => {
         }
         data.seller = user?.name;
         data.sellerId = user?._id;
+        data.date = format(new Date(), 'PPP');
         data.sellerEmail = user?.email;
         const formData = new FormData()
         formData.append('image', data.image[0]);
