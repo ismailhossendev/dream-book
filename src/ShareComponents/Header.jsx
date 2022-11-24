@@ -32,6 +32,7 @@ const Header = () => {
                     <Link to='/' className='btn btn-primary'>LogOut</Link>
                 </ul>
             </div>
+            <label htmlFor="admin-menu" className="btn btn-primary drawer-button lg:hidden">Open drawer</label>
         </div>
     );
 };

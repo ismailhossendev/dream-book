@@ -5,9 +5,11 @@ import Header from '../ShareComponents/Header';
 
 const Main = () => {
     return (
-        <div className='min-h-screen relative'>
-            <Header />
-            <Outlet />
+        <div className=''>
+            <div className="container mx-auto">
+                <Header />
+                <Outlet />
+            </div>
             <Footer />
         </div>
     );

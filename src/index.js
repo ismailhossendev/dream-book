@@ -5,17 +5,23 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import MainContext from './Contexts/MainContext';
 import { Toaster } from 'react-hot-toast';
+import { QueryClient, QueryClientProvider } from 'react-query';
+
+const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <MainContext>
-      <Toaster
-        position='top-center'
-        reverseOrder={false}
-      />
-      <App />
-    </MainContext>
+    <QueryClientProvider client={queryClient}>
+      <MainContext>
+        <Toaster
+          position='top-center'
+          reverseOrder={false}
+        />
+        <App />
+      </MainContext>
+    </QueryClientProvider>
+
   </React.StrictMode>
 );
 
