@@ -1,5 +1,6 @@
 import React from 'react';
-import AddModal from './AddModal';
+import { Link } from 'react-router-dom';
+import AddProduct from './AddProduct';
 
 const MyProducts = () => {
     return (
@@ -14,9 +15,9 @@ const MyProducts = () => {
                             <th>PRICE</th>
                             <th>STATUS</th>
                             <th>
-                                <label
-                                    htmlFor="add-product"
-                                    className='btn btn-sm btn-accent'>Add Product</label>
+                                <Link to="/dashboard/add-product" className='btn btn-sm btn-accent'>
+                                    Add Product
+                                </Link>
                             </th>
                         </tr>
                     </thead>
@@ -59,7 +60,6 @@ const MyProducts = () => {
                     </tfoot>
 
                 </table>
-                <AddModal />
             </div>
         </div>
     );

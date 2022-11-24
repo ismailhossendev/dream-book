@@ -14,7 +14,12 @@ const MainContext = ({ children }) => {
     useEffect(() => {
         const unlink = onAuthStateChanged(auth, result => {
             if (result) {
-                setUser(result)
+                fetch(`http://localhost:5000/user?email=${result.email}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        setUser(data)
+
+                    })
             } else {
                 setUser(null)
             }

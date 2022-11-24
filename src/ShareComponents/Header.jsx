@@ -21,7 +21,7 @@ const Header = () => {
                         <Link to='/' className='btn btn-primary'>LogOut</Link>
                     </ul>
                 </div>
-                <Link to='/' className="btn btn-ghost normal-case text-xl">IsmailDev{user?.uid}</Link>
+                <Link to='/' className="btn btn-ghost normal-case text-xl">Dream Book {user?.name}</Link>
             </div>
             <div className="navbar-end hidden lg:flex">
                 <ul className="menu menu-horizontal p-0">

@@ -6,7 +6,7 @@ import { mainContext } from '../../../Contexts/MainContext';
 
 const Register = () => {
     const { emailPassword } = useContext(mainContext);
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit } = useForm();
 
     const handleRegister = (data) => {
         if (data.password !== data.confirmPassword) {
@@ -64,7 +64,9 @@ const Register = () => {
                         <label className="label">
                             <span className="label-text">Company name</span>
                         </label>
-                        <input type="text" placeholder="(optional)" className="input input-bordered w-full " />
+                        <input type="text" placeholder="(optional)"
+                            {...register('companyName')}
+                            className="input input-bordered w-full " />
                     </div>
                     <div className="form-control w-full ">
                         <label className="label">
