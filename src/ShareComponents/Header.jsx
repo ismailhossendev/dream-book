@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { mainContext } from '../Contexts/MainContext';
 
 const Header = () => {
+    const { user } = useContext(mainContext)
     return (
         <div className="navbar bg-base-100 container mx-auto p-2">
             <div className="navbar-start">
@@ -19,7 +21,7 @@ const Header = () => {
                         <Link to='/' className='btn btn-primary'>LogOut</Link>
                     </ul>
                 </div>
-                <Link to='/' className="btn btn-ghost normal-case text-xl">IsmailDev</Link>
+                <Link to='/' className="btn btn-ghost normal-case text-xl">IsmailDev{user?.uid}</Link>
             </div>
             <div className="navbar-end hidden lg:flex">
                 <ul className="menu menu-horizontal p-0">
@@ -28,7 +30,7 @@ const Header = () => {
                     <Link to='/register' className='btn btn-ghost'>Register</Link>
                     <Link to='/login' className='btn btn-accent'>Login</Link>
 
-                    <Link to='/' className='btn btn-ghost'>Account</Link>
+                    <Link to='/dashboard' className='btn btn-ghost'>Account</Link>
                     <Link to='/' className='btn btn-primary'>LogOut</Link>
                 </ul>
             </div>

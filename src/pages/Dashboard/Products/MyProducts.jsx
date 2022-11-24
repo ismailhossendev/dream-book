@@ -1,4 +1,5 @@
 import React from 'react';
+import AddModal from './AddModal';
 
 const MyProducts = () => {
     return (
@@ -13,7 +14,9 @@ const MyProducts = () => {
                             <th>PRICE</th>
                             <th>STATUS</th>
                             <th>
-                                <button className='btn btn-sm btn-accent'>Add Product</button>
+                                <label
+                                    htmlFor="add-product"
+                                    className='btn btn-sm btn-accent'>Add Product</label>
                             </th>
                         </tr>
                     </thead>
@@ -56,6 +59,7 @@ const MyProducts = () => {
                     </tfoot>
 
                 </table>
+                <AddModal />
             </div>
         </div>
     );

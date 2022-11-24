@@ -5,7 +5,7 @@ const Aside = () => {
     return (
         <div className="drawer-side">
             <label htmlFor="admin-menu" className="drawer-overlay"></label>
-            <ul className="menu p-4 w-72 bg-base-100 text-base-content">
+            <ul className="menu p-4 w-72  text-base-content">
                 <div>
                     <div className="mt-8 text-center">
                         <img src="" alt="" className="m-auto h-10 w-10 rounded-full object-cover lg:h-28 lg:w-28" />
