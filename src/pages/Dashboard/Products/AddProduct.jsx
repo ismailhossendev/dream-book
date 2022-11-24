@@ -24,14 +24,35 @@ const AddProduct = () => {
         data.seller = user?.name;
         data.sellerId = user?._id;
         data.sellerEmail = user?.email;
-        console.log(data);
-        const img = data.image.files[0];
         const formData = new FormData()
-        formData.append('image', img);
+        formData.append('image', data.image[0]);
         const url = `https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_API_KEY}`
+
+        fetch(url, {
+            method: 'POST',
+            body: formData
+        }).then(res => res.json())
+            .then(ImageData => {
+                data.image = ImageData.data.url;
+                createProduct(data);
+            }).catch(error => {
+                toast.error(error.message);
+            })
     };
 
-
+    const createProduct = data => {
+        fetch('http://localhost:5000/products', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(res => res.json())
+            .then(data => {
+                toast(data.message)
+            })
+    }
 
     return (
 
