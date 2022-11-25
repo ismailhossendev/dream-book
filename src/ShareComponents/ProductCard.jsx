@@ -1,8 +1,9 @@
 import React from 'react';
 import { FaLocationArrow } from "react-icons/fa"
 import { Link } from 'react-router-dom';
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, setShowModal, showModal }) => {
     const { name, image, location, price, newPrice, category, details, _id, ads, } = product;
+
     return (
         <div className="focus:outline-none mx-2  xl:mb-0 mb-8 rounded-md"
             whileHover={{ scale: 1.1 }}
@@ -36,9 +37,9 @@ const ProductCard = ({ product }) => {
                     <div className="flex items-center  py-4 gap-1">
                         <h2 className="focus:outline-none text-indigo-700 text-xs font-semibold flex gap-1"><FaLocationArrow />  {location ? location : "not "}</h2>
                     </div>
-                    <Link
-                        to={`/book/${_id}`}
-                        className='btn btn-outline w-full rounded-2xl'>DETAILS</Link>
+                    <label
+                        onClick={() => setShowModal(product)}
+                        htmlFor="booking-modal" className="btn btn-warning w-full">Book Now</label>
                 </div>
             </div>
         </div>

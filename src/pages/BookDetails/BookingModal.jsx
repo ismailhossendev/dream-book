@@ -9,7 +9,7 @@ const BookingModal = ({ setShowModal, data }) => {
             <input type="checkbox" id="booking-modal" className="modal-toggle" />
             <div className="modal">
                 <div className="modal-box relative p-3 bg-gray-300">
-                    <label htmlFor="booking-modal" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+                    <label onClick={() => setShowModal(null)} htmlFor="booking-modal" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
                     <h1 className='text-xl w-5/6'>Please Confirm Your Booking</h1>
                     <form className='mt-1 space-y-3'>
                         <input type="text" defaultValue={user?.name} readOnly className="input input-bordered w-full" />
@@ -30,7 +30,7 @@ const BookingModal = ({ setShowModal, data }) => {
                                 <input type="text" placeholder="Meeting location for buying this product" className="input input-bordered w-full " />
                             </div>
                         </div>
-                        <input type="submit" className='btn w-full' />
+                        <input onClick={() => setShowModal(null)} type="submit" className='btn w-full' />
                     </form>
                 </div>
             </div>
