@@ -1,9 +1,12 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { mainContext } from '../../Contexts/MainContext';
 
 const BookingModal = ({ setShowModal, data }) => {
     const { user } = useContext(mainContext);
     const { name, price, seller, sellerEmail, sellerPhone } = data;
+    const [loading, setLoading] = useState(false);
+
+
     return (
         <div>
             <input type="checkbox" id="booking-modal" className="modal-toggle" />
