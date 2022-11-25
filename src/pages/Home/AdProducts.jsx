@@ -3,7 +3,7 @@ import useFetch from '../../Hooks/useFetch';
 import ProductCard from '../../ShareComponents/ProductCard';
 
 const AdProducts = () => {
-    const { data } = useFetch('http://localhost:5000/products?ads=ture', "adsProducts");
+    const { data } = useFetch('https://dream-book-server.vercel.app/products?ads=ture', "adsProducts");
     return (
         <div className={`${data.length > 0 ? "block" : "hidden"} `}>
             <h1 className='text-2xl font-semibold font-serif my-3'>Sponsor's Product {data.length}</h1>

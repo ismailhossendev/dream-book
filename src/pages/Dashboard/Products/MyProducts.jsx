@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
 import { mainContext } from '../../../Contexts/MainContext';
@@ -7,7 +7,7 @@ const MyProducts = () => {
     const { user } = useContext(mainContext);
     const { data = [] } = useQuery({
         queryKey: ['myProducts', user?.id],
-        queryFn: () => fetch(`http://localhost:5000/my-products?email=ismailhossendev@gmail.com`)
+        queryFn: () => fetch(`https://dream-book-server.vercel.app/my-products?email=ismailhossendev@gmail.com`)
             .then(res => res.json()),
     })
     return (

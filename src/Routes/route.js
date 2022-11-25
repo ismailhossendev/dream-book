@@ -30,12 +30,12 @@ export const route = createBrowserRouter([
             },
             {
                 path: '/book/:id',
-                loader: ({ params }) => fetch(`http://localhost:5000/product/${params.id}`),
+                loader: ({ params }) => fetch(`https://dream-book-server.vercel.app/product/${params.id}`),
                 element: <BookDetails />
             },
             {
                 path: '/category/:id',
-                loader: ({ params }) => fetch(`http://localhost:5000/category/${params.id}`),
+                loader: ({ params }) => fetch(`https://dream-book-server.vercel.app/category/${params.id}`),
                 element: <ByCategory />
             }
         ])

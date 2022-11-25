@@ -15,7 +15,7 @@ const MainContext = ({ children }) => {
     useEffect(() => {
         const unlink = onAuthStateChanged(auth, result => {
             if (result) {
-                fetch(`http://localhost:5000/user?email=${result.email}`)
+                fetch(`https://dream-book-server.vercel.app/user?email=${result.email}`)
                     .then(res => res.json())
                     .then(data => {
                         setUser(data)

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { useQuery } from 'react-query';
@@ -10,9 +10,10 @@ import { format } from 'date-fns';
 const AddProduct = () => {
     const { register, handleSubmit, reset } = useForm();
     const { user } = useContext(mainContext);
+    const [loading, setLoading] = useState(false);
     const { data: categories = [] } = useQuery({
         queryKey: 'categories',
-        queryFn: () => fetch('http://localhost:5000/categories')
+        queryFn: () => fetch('https://dream-book-server.vercel.app/categories')
             .then(res => res.json())
             .then(data => {
                 return data;
@@ -20,6 +21,7 @@ const AddProduct = () => {
     })
 
     const handleAddProduct = (data) => {
+        setLoading(true);
         if (data.category === "select") {
             toast.error('Please select a category');
             return;
@@ -46,7 +48,7 @@ const AddProduct = () => {
     };
 
     const createProduct = data => {
-        fetch('http://localhost:5000/products', {
+        fetch('https://dream-book-server.vercel.app/products', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -62,6 +64,7 @@ const AddProduct = () => {
                     toast.error(data.message);
                 }
             })
+        setLoading(false);
     }
 
     return (
@@ -148,7 +151,7 @@ const AddProduct = () => {
                     {...register('location', { required: true })}
                     className="input input-bordered w-full mb-2" />
             </div>
-            <button type="submit" className="btn btn-primary w-full">Submit</button>
+            <button disabled={loading} type="submit" className={`btn btn-primary w-full ${loading && 'loading'}`}>Add Product</button>
         </form>
     );
 };
