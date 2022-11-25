@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
-
+import { mainContext } from '../../../Contexts/MainContext';
+import { GoVerified } from 'react-icons/go'
 const Aside = () => {
+    const { user } = useContext(mainContext);
     return (
         <div className="drawer-side">
             <label htmlFor="admin-menu" className="drawer-overlay"></label>
@@ -9,8 +11,8 @@ const Aside = () => {
                 <div>
                     <div className="mt-8 text-center">
                         <img src="" alt="" className="m-auto h-10 w-10 rounded-full object-cover lg:h-28 lg:w-28" />
-                        <h5 className="mt-4 hidden text-xl font-semibold text-gray-600 lg:block dark:text-gray-300">Cynthia J. Watts</h5>
-                        <span className="hidden text-gray-400 lg:block">Admin</span>
+                        <h5 className="mt-4 hidden text-xl font-semibold text-gray-600 lg:flex justify-center items-center gap-1 dark:text-gray-300">{user.name}{user.verified && <GoVerified />}</h5>
+                        <span className="hidden text-gray-400 lg:block">{user?.role}</span>
                     </div>
                     <ul className="mt-8 space-y-2 tracking-wide">
                         <li>

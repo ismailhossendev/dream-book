@@ -4,6 +4,9 @@ import toast from 'react-hot-toast';
 import { useQuery } from 'react-query';
 import { mainContext } from '../../../Contexts/MainContext';
 import { format } from 'date-fns';
+
+
+
 const AddProduct = () => {
     const { register, handleSubmit, reset } = useForm();
     const { user } = useContext(mainContext);
@@ -23,6 +26,7 @@ const AddProduct = () => {
         }
         data.seller = user?.name;
         data.sellerId = user?._id;
+        data.verified = user?.verified || false;
         data.date = format(new Date(), 'PPP');
         data.sellerEmail = user?.email;
         const formData = new FormData()
@@ -96,15 +100,24 @@ const AddProduct = () => {
                         {...register('price', { required: true })}
                         className="input input-bordered w-full " />
                 </div>
-            </div>
-            <div className="form-control w-full ">
-                <label className="label">
-                    <span className="label-text">Used Time*</span>
-                </label>
-                <input type="text"
-                    placeholder="Enter Used Time"
-                    {...register('usedTime', { required: true })}
-                    className="input input-bordered w-full " />
+                <div className="form-control w-full ">
+                    <label className="label">
+                        <span className="label-text">Used Time*</span>
+                    </label>
+                    <input type="text"
+                        placeholder="Enter Used Time"
+                        {...register('usedTime', { required: true })}
+                        className="input input-bordered w-full " />
+                </div>
+                <div className="form-control w-full ">
+                    <label className="label">
+                        <span className="label-text">Phone*</span>
+                    </label>
+                    <input type="number"
+                        placeholder="01 11 22 11 44"
+                        {...register('sellerPhone', { required: true })}
+                        className="input input-bordered w-full " />
+                </div>
             </div>
             <div>
                 <label htmlFor="website" className="block mb-2 text-sm font-medium text-gray-900 mt-2">Select Category*</label>
@@ -125,6 +138,15 @@ const AddProduct = () => {
                 <textarea type="number" placeholder="Enter your Book details"
                     {...register('details', { required: true })}
                     className="textarea textarea-bordered mb-2 w-full " ></textarea>
+            </div>
+            <div className="form-control w-full ">
+                <label className="label">
+                    <span className="label-text">Location*</span>
+                </label>
+                <input type="text"
+                    placeholder="Enter your Location"
+                    {...register('location', { required: true })}
+                    className="input input-bordered w-full mb-2" />
             </div>
             <button type="submit" className="btn btn-primary w-full">Submit</button>
         </form>

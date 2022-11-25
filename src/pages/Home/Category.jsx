@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 const Category = ({ category }) => {
     return (
-        <Link className='text-center'>
+        <Link to={`/category/${category._id}`} className='text-center'>
             <motion.div className='shadow-md shadow-slate-600 rounded-lg p-2'
                 whileHover={{ scale: 1.1 }}
             >

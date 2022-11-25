@@ -9,6 +9,7 @@ const auth = getAuth(app);
 const MainContext = ({ children }) => {
     const [user, setUser] = useState(null);
     const gProvider = new GoogleAuthProvider()
+    const [loading, setLoading] = useState(true)
 
 
     useEffect(() => {
@@ -18,6 +19,7 @@ const MainContext = ({ children }) => {
                     .then(res => res.json())
                     .then(data => {
                         setUser(data)
+                        setLoading(false);
 
                     })
             } else {
@@ -28,17 +30,20 @@ const MainContext = ({ children }) => {
     }, [])
 
     const emailPassword = (email, password) => {
+        setLoading(true)
         return createUserWithEmailAndPassword(auth, email, password)
     }
     const withGoogle = () => {
+        setLoading(true)
         return signInWithPopup(auth, gProvider);
     }
 
     const login = (email, password) => {
+        setLoading(true)
         return signInWithEmailAndPassword(auth, email, password);
     }
 
-    const value = { emailPassword, withGoogle, user, login }
+    const value = { emailPassword, withGoogle, user, login, loading, setLoading }
     return (
         <mainContext.Provider value={value}>
             {children}

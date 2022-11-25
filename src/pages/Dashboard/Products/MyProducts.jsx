@@ -1,7 +1,15 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
+import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
+import { mainContext } from '../../../Contexts/MainContext';
 
 const MyProducts = () => {
+    const { user } = useContext(mainContext);
+    const { data = [] } = useQuery({
+        queryKey: ['myProducts', user?.id],
+        queryFn: () => fetch(`http://localhost:5000/my-products?email=ismailhossendev@gmail.com`)
+            .then(res => res.json()),
+    })
     return (
         <div>
             <div className="overflow-x-auto w-full">
@@ -21,32 +29,34 @@ const MyProducts = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th>
-                                1
-                            </th>
-                            <td>
-                                <div className="flex items-center space-x-3">
-                                    <div className="avatar">
-                                        <div className="mask mask-squircle w-12 h-12">
-                                            <img src="https://i.ibb.co/mGWrSNF/TVS-Apache-RTR-160-4v-price-in-Bangladesh.jpg" alt="Avatar Tailwind CSS Component" />
+                        {
+                            data.map(product => <tr>
+                                <th>
+                                    1
+                                </th>
+                                <td>
+                                    <div className="flex items-center space-x-3">
+                                        <div className="avatar">
+                                            <div className="mask mask-squircle w-12 h-12">
+                                                <img src={product.image} alt="Avatar Tailwind CSS Component" />
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div className="font-bold">{product.name}</div>
                                         </div>
                                     </div>
-                                    <div>
-                                        <div className="font-bold">Hart Hagerty</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                BDT 1000
-                            </td>
-                            <td>
-                                SOLD
-                            </td>
-                            <th>
-                                <button className="btn btn-outline btn-xs">delete</button>
-                            </th>
-                        </tr>
+                                </td>
+                                <td>
+                                    BDT {product.price}
+                                </td>
+                                <td>
+                                    {product.status}
+                                </td>
+                                <th>
+                                    <button className="btn btn-outline btn-xs">delete</button>
+                                </th>
+                            </tr>)
+                        }
                     </tbody>
 
                     <tfoot>

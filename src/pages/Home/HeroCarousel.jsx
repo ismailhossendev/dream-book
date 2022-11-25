@@ -5,14 +5,11 @@ const HeroCarousel = () => {
     return (
         <div>
             <Carousel autoPlay={true} infiniteLoop={true} showThumbs={false} >
-                <div>
-                    <img src="https://assets.swap.com.bd/slider-images/fe9fc289c3ff0af142b6d3bead98a923/default/BCHKLbpio3U6kgmYuGlav3JdWhSplZySpGGkOO7u.png" />
+                <div className='lg:h-[500px]'>
+                    <img className='h-full object-cover' src="https://i.ibb.co/Q8Tzj97/slider1.png" />
                 </div>
-                <div>
-                    <img src="https://assets.swap.com.bd/slider-images/fe9fc289c3ff0af142b6d3bead98a923/default/BCHKLbpio3U6kgmYuGlav3JdWhSplZySpGGkOO7u.png" />
-                </div>
-                <div>
-                    <img src="https://assets.swap.com.bd/slider-images/fe9fc289c3ff0af142b6d3bead98a923/default/BCHKLbpio3U6kgmYuGlav3JdWhSplZySpGGkOO7u.png" />
+                <div className='lg:h-[500px]'>
+                    <img className='h-full object-cover' src="https://i.ibb.co/C7nRHWy/Colorful-Kids-Book-Fair-Landscape-Banner.jpg" alt="" />
                 </div>
             </Carousel>
         </div>
