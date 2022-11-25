@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import { GoVerified, GoMail, GoDeviceMobile, GoLocation } from 'react-icons/go';
+import BookingModal from './BookingModal';
 
 const BookDetails = () => {
     const data = useLoaderData()
     const { name, image, location, price, newPrice, category, details, seller, sellerEmail, sellerPhone, verified, usedTime, date } = data;
+    const [showModal, setShowModal] = useState(false);
     return (
         <section>
             <div className="relative mx-auto max-w-screen-xl px-4 py-8">
@@ -68,14 +70,19 @@ const BookDetails = () => {
                             </fieldset>
                             <p>Post: {date}</p>
                             <div className="mt-8 flex">
-                                <button type="submit" className="ml-3 block rounded bg-green-600 px-5 py-3 text-xs font-medium text-white hover:bg-green-500">
-                                    Book Now
-                                </button>
+                                <label
+                                    onClick={() => setShowModal(true)}
+                                    htmlFor="booking-modal" className="btn btn-warning">Book Now</label>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
+            {showModal &&
+                <BookingModal
+                    data={data}
+                    setShowModal={setShowModal}
+                />}
         </section>
     );
 };
