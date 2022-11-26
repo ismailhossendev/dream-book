@@ -3,7 +3,10 @@ import { NavLink } from 'react-router-dom';
 import { mainContext } from '../../../Contexts/MainContext';
 import { GoVerified } from 'react-icons/go'
 const Aside = () => {
-    const { user } = useContext(mainContext);
+    const { user, loading } = useContext(mainContext);
+    if (loading) {
+        return <div>Loading...</div>
+    }
     return (
         <div className="drawer-side">
             <label htmlFor="admin-menu" className="drawer-overlay"></label>
