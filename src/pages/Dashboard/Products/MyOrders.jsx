@@ -10,8 +10,8 @@ const MyOrders = () => {
 
 
     const { data = [], isLoading } = useQuery({
-        queryKey: ['myProducts', user?.email],
-        queryFn: () => fetch(`https://dream-book-server.vercel.app/my-products?email=${user.email}`)
+        queryKey: ['myOrders', user?.email],
+        queryFn: () => fetch(`https://dream-book-server.vercel.app/booked-products?email=${user.email}`)
             .then(res => res.json())
             .then(data => {
                 return data
@@ -35,11 +35,6 @@ const MyOrders = () => {
                             <th>Name</th>
                             <th>PRICE</th>
                             <th>STATUS</th>
-                            <th>
-                                <Link to="/dashboard/add-product" className='btn btn-sm btn-accent'>
-                                    Add Product
-                                </Link>
-                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -67,7 +62,7 @@ const MyOrders = () => {
                                     {product.status}
                                 </td>
                                 <th>
-                                    <button className="btn btn-outline btn-xs">delete</button>
+                                    <button disabled={product?.status === "paid"} className="btn btn-outline btn-xs">Pay</button>
                                 </th>
                             </tr>)
                         }

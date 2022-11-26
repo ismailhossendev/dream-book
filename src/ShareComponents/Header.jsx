@@ -1,9 +1,22 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
+import { Link, useNavigate } from 'react-router-dom';
 import { mainContext } from '../Contexts/MainContext';
 
 const Header = () => {
-    const { user } = useContext(mainContext)
+    const { user, logOut } = useContext(mainContext)
+    const navigate = useNavigate();
+    const handleLogOut = () => {
+        logOut()
+            .then(res => {
+                toast.success('Logout Successful')
+                navigate('/');
+            }).catch(err => {
+                toast.error(err.message)
+            })
+    };
+
+
     return (
         <div className="navbar bg-base-100 container mx-auto p-2">
             <div className="navbar-start">
@@ -31,7 +44,7 @@ const Header = () => {
                     <Link to='/login' className='btn btn-accent'>Login</Link>
 
                     <Link to='/dashboard' className='btn btn-ghost'>Account</Link>
-                    <Link to='/' className='btn btn-primary'>LogOut</Link>
+                    <button onClick={handleLogOut} className='btn btn-primary'>LogOut</button >
                 </ul>
             </div>
             <label htmlFor="admin-menu" className="btn btn-primary drawer-button lg:hidden">Open drawer</label>

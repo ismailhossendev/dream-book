@@ -3,12 +3,16 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { mainContext } from '../../../Contexts/MainContext';
+import WithGoogle from '../../../ShareComponents/WithGoogle';
 
 const Register = () => {
     const { emailPassword } = useContext(mainContext);
     const { register, handleSubmit } = useForm();
 
     const handleRegister = (data) => {
+        toast.loading("Registering...", {
+            id: "register"
+        })
         if (data.password !== data.confirmPassword) {
             toast.error('Password does not match');
             return;
@@ -37,7 +41,13 @@ const Register = () => {
         })
             .then(res => res.json())
             .then(data => {
-                toast(data.message)
+                if (data.success) {
+                    toast.remove("register");
+                    toast.success("Registered Successfully")
+                } else {
+                    toast.remove("register");
+                    toast.error(data.message);
+                }
             })
     }
     return (
@@ -113,9 +123,14 @@ const Register = () => {
                 </div>
                 <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none mt-2 focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center  -700 -800">Submit</button>
             </form>
+
             <p className="mt-5">
                 Already have an account? <Link to='/login' className="text-blue-600 hover:underline ">Log in</Link>
             </p>
+            <div className="flex items-center my-4 before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5">
+                <p className="text-center font-semibold mx-4 mb-0">OR</p>
+            </div>
+            <WithGoogle />
         </div>
 
     );
