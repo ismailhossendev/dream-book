@@ -4,7 +4,7 @@ import { mainContext } from '../../Contexts/MainContext';
 
 const BookingModal = ({ setShowModal, data }) => {
     const { user } = useContext(mainContext);
-    const { name, price, seller, sellerEmail, sellerPhone, _id } = data;
+    const { name, price, _id } = data;
     const [loading, setLoading] = useState(false);
     const handleBooking = (e) => {
         e.preventDefault();
@@ -19,7 +19,7 @@ const BookingModal = ({ setShowModal, data }) => {
 
         }
         setLoading(true);
-        fetch(`http://localhost:5000/book?id=${_id}`, {
+        fetch(`https://dream-book-server.vercel.app/book?id=${_id}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
