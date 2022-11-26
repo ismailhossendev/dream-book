@@ -5,10 +5,12 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './component.css'
 import { mainContext } from '../Contexts/MainContext';
+import toast from 'react-hot-toast';
 const ProductCard = ({ product, setShowModal, showModal }) => {
     const { user } = useContext(mainContext);
     const { name, image, location, price, sellerEmail, sellerPhone, newPrice, category, date, usedTime, _id, ads, condition, seller, verified } = product;
     const handleReport = () => {
+        toast.loading("reporting...", { duration: 1000 })
         const details = {
             ProductName: name,
             productId: _id,
@@ -18,8 +20,10 @@ const ProductCard = ({ product, setShowModal, showModal }) => {
 
         axios.post('https://dream-book-server.vercel.app/report', details)
             .then(res => {
-                if (res.message) {
-                    alert('Reported')
+                if (res.data.success) {
+                    toast.success('Reported')
+                } else {
+                    toast.error('Error')
                 }
             })
     }
@@ -76,7 +80,7 @@ const ProductCard = ({ product, setShowModal, showModal }) => {
                     </div>
                 </div>
                 <div className="flex justify-between items-center p-2 mb-4 w-full">
-                    <div className="flex cursor-pointer" title='Report To Admin'>
+                    <div onClick={handleReport} className="flex cursor-pointer" title='Report To Admin'>
                         <i className="material-icons mr-2 text-red-600">report</i>
                     </div>
                     <div className="">
