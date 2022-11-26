@@ -72,11 +72,12 @@ const Reports = () => {
                                         <td className='flex gap-2'>
                                             <button
                                                 onClick={() => handleDelete(report.productId, report.ProductName, report._id)}
-                                                className='text-xl text-rose-900'><FaTrash />
+                                                className='text-xl text-rose-900' title='Delete Product'><FaTrash />
                                             </button>
                                             <button
                                                 onClick={() => handleDelete(false, report.ProductName, report._id)}
-                                                className='text-xl text-rose-900'><FaRegTimesCircle />
+                                                className='text-xl text-rose-900'><FaRegTimesCircle
+                                                    title='Delete Report' />
                                             </button>
                                         </td>
                                     </tr>
