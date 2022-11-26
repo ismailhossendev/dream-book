@@ -66,7 +66,8 @@ const BookingModal = ({ setShowModal, data }) => {
                                 <input type="number" name="phone" placeholder="0177 44**1044*" className="input input-bordered w-full " />
                             </div>
                         </div>
-                        <input type="submit" className='btn w-full' />
+                        <input type="submit" disabled={loading} className={`btn w-full ${loading && "loading"}`} />
+                        <button>Seller Not Booked</button>
                     </form>
                 </div>
             </div>

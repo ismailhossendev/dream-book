@@ -123,7 +123,7 @@ const AddProduct = () => {
                 </div>
             </div>
             <div>
-                <label htmlFor="website" className="block mb-2 text-sm font-medium text-gray-900 mt-2">Select Category*</label>
+                <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900 mt-2">Select Category*</label>
                 <select
                     {...register("category", { required: true })}
                     defaultValue="select"
@@ -134,11 +134,22 @@ const AddProduct = () => {
                     }
                 </select>
             </div>
+            <div>
+                <label htmlFor="condition" className="block mb-2 text-sm font-medium text-gray-900 mt-2">Select Condition*</label>
+                <select
+                    {...register("condition", { required: true })}
+                    defaultValue="select"
+                    className='select select-bordered w-full '>
+                    <option value='Excellent'>Excellent</option>
+                    <option value='Good'>Good</option>
+                    <option value='Fair'>Fair</option>
+                </select>
+            </div>
             <div className="form-control w-full ">
                 <label className="label">
                     <span className="label-text">Details*</span>
                 </label>
-                <textarea type="number" placeholder="Enter your Book details"
+                <textarea placeholder="Enter your Book details"
                     {...register('details', { required: true })}
                     className="textarea textarea-bordered mb-2 w-full " ></textarea>
             </div>
