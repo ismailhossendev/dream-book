@@ -85,7 +85,7 @@ const ProductCard = ({ product, setShowModal, showModal }) => {
                     </div>
                     <div className="">
                         <p className='flex items-center'>Condition:
-                            {condition !== "Excellent" && <i className="material-icons text-green-600">check_circle</i>}
+                            {condition === "Excellent" && <i className="material-icons text-green-600">check_circle</i>}
                             {condition === "Good" && <i className="material-icons text-yellow-600">sentiment_neutral</i>}{condition}
                             {condition === "Fair" && <i className="material-icons text-red-600">sentiment_very_dissatisfied</i>}
                         </p>

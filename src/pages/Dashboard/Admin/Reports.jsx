@@ -10,8 +10,14 @@ const Reports = () => {
                 return data
             })
     })
-    const handleDelete = (id) => {
-        fetch(`https://dream-book-server.vercel.app/reports?id=${id}`, {
+    const handleDelete = (id, productName, _id) => {
+        const agree = window.confirm(`Are you sure you want to delete ${productName} ?`)
+        if (!agree) {
+            return
+        }
+
+
+        fetch(`https://dream-book-server.vercel.app/reports?id=${id}&reportId=${_id}`, {
             method: 'DELETE',
         })
             .then(res => res.json())
@@ -48,7 +54,9 @@ const Reports = () => {
                                         <th>{index + 1}</th>
                                         <td>{report.ProductName}</td>
                                         <td>{report.reporterName}</td>
-                                        <td><button className='btn btn-sm'>DELETE</button></td>
+                                        <td><button
+                                            onClick={() => handleDelete(report.productId, report.ProductName, report._id)}
+                                            className='btn btn-sm'>DELETE</button></td>
                                     </tr>
                                 })
                             }
