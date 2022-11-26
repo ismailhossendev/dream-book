@@ -1,8 +1,11 @@
 import React from 'react';
+import toast from 'react-hot-toast';
 import { useQuery } from 'react-query';
+import { FaTrash, FaRegTimesCircle, } from "react-icons/fa"
 
 const Reports = () => {
-    const { data = [] } = useQuery({
+
+    const { data = [], refetch, isLoading } = useQuery({
         queryKey: 'reports',
         queryFn: () => fetch('https://dream-book-server.vercel.app/reports')
             .then(res => res.json())
@@ -10,27 +13,39 @@ const Reports = () => {
                 return data
             })
     })
+
     const handleDelete = (id, productName, _id) => {
-        const agree = window.confirm(`Are you sure you want to delete ${productName} ?`)
+        const agree = window.confirm(`Are you sure you want to delete ${!id && 'Report '} on ${productName} ?`)
         if (!agree) {
             return
         }
+        toast.loading('Deleting...', {
+            id: 'delete'
+        });
 
-
-        fetch(`https://dream-book-server.vercel.app/reports?id=${id}&reportId=${_id}`, {
+        fetch(`https://dream-book-server.vercel.app/reports?${id && "id=" + id}&reportId=${_id} `, {
             method: 'DELETE',
         })
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
-                    alert(data.message)
+                    toast.remove('delete');
+                    toast.success(data.message)
+                    refetch();
                 }
                 else {
-                    alert(data.message)
+                    toast.remove('delete');
+                    toast.error(data.message)
                 }
             })
     }
-
+    if (isLoading) {
+        return toast.loading('Report Loading...', {
+            id: 'reports'
+        });
+    } else {
+        toast.remove('reports');
+    }
 
     return (
         <div>
@@ -54,9 +69,16 @@ const Reports = () => {
                                         <th>{index + 1}</th>
                                         <td>{report.ProductName}</td>
                                         <td>{report.reporterName}</td>
-                                        <td><button
-                                            onClick={() => handleDelete(report.productId, report.ProductName, report._id)}
-                                            className='btn btn-sm'>DELETE</button></td>
+                                        <td className='flex gap-2'>
+                                            <button
+                                                onClick={() => handleDelete(report.productId, report.ProductName, report._id)}
+                                                className='text-xl text-rose-900'><FaTrash />
+                                            </button>
+                                            <button
+                                                onClick={() => handleDelete(false, report.ProductName, report._id)}
+                                                className='text-xl text-rose-900'><FaRegTimesCircle />
+                                            </button>
+                                        </td>
                                     </tr>
                                 })
                             }

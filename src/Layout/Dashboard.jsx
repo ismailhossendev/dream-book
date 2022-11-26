@@ -1,7 +1,7 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import Header from '../../../ShareComponents/Header';
-import Aside from './Aside';
+import Header from '../ShareComponents/Header';
+import Aside from '../pages/Dashboard/Dashboard/Aside';
 
 const Dashboard = () => {
     return (

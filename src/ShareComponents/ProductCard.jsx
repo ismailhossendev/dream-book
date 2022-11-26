@@ -23,7 +23,7 @@ const ProductCard = ({ product, setShowModal, showModal }) => {
                 if (res.data.success) {
                     toast.success('Reported')
                 } else {
-                    toast.error('Error')
+                    toast.error(res.data.message)
                 }
             })
     }
@@ -35,7 +35,7 @@ const ProductCard = ({ product, setShowModal, showModal }) => {
                         <img src={image} alt="pic" className="h-72 w-56 rounded-md shadow-2xl transform -translate-y-4 border-4 border-gray-300 " />
                     </div>
                     <div className="flex-col text-gray-900 justify-center w-full">
-                        <p className="pt-4 text-xl font-bold h-14">{name}</p>
+                        <p className="pt-4 text-xl font-bold h-16 overflow-hidden">{name}</p>
                         <hr className="hr-text" />
                         <div className="text-md flex justify-between px-4 my-2">
                             <span className="font-bold flex gap-1">{category} | {ads && 'Sponsor,'}<FaLocationArrow />{location} </span>

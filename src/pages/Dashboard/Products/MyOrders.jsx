@@ -4,7 +4,7 @@ import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
 import { mainContext } from '../../../Contexts/MainContext';
 
-const MyProducts = () => {
+const MyOrders = () => {
     const { user } = useContext(mainContext);
 
 
@@ -78,4 +78,4 @@ const MyProducts = () => {
     );
 };
 
-export default MyProducts;
+export default MyOrders;

@@ -5,6 +5,7 @@ import HeroCarousel from './HeroCarousel';
 import Testimonials from './Testimonials';
 
 const Home = () => {
+
     return (
         <div className='space-y-4'>
             <HeroCarousel />
