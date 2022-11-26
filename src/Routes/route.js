@@ -11,6 +11,10 @@ import MyProducts from "../pages/Dashboard/Products/MyProducts";
 import Home from "../pages/Home/Home";
 import UserDashboard from "../pages/Dashboard/Dashboard/UserDashboard";
 import MyOrders from "../pages/Dashboard/Products/MyOrders";
+import LoginRoute from "./LoginRoute";
+import BuyerRoute from "./BuyerRoute";
+import SellerRoute from "./SellerRoute";
+import AdminRoute from "./AdminRoute";
 
 export const route = createBrowserRouter([
     {
@@ -32,7 +36,7 @@ export const route = createBrowserRouter([
             {
                 path: '/category/:id',
                 loader: ({ params }) => fetch(`https://dream-book-server.vercel.app/category/${params.id}`),
-                element: <ByCategory />
+                element: <LoginRoute> <ByCategory /></LoginRoute>
             }
         ])
     },
@@ -50,7 +54,7 @@ export const route = createBrowserRouter([
             },
             {
                 path: '/dashboard/my-products',
-                element: <MyProducts />
+                element: <SellerRoute><MyProducts /></SellerRoute>
             },
             {
                 path: '/dashboard/users',
@@ -59,11 +63,11 @@ export const route = createBrowserRouter([
             ,
             {
                 path: '/dashboard/add-product',
-                element: <AddProduct />
+                element: <SellerRoute><AddProduct /></SellerRoute>
             },
             {
                 path: '/dashboard/my-orders',
-                element: <MyOrders />
+                element: <BuyerRoute><MyOrders /></BuyerRoute>
             }
         ])
     }

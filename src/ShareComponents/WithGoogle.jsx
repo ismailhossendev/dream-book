@@ -9,6 +9,9 @@ const WithGoogle = () => {
     const location = useLocation();
     const from = location.state?.from || '/';
     const handleGoogle = () => {
+        toast.loading("Logging in...", {
+            id: "google"
+        });
         withGoogle()
             .then(res => {
                 const user = {
@@ -37,9 +40,11 @@ const WithGoogle = () => {
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
+                    toast.remove('google');
                     toast.success("Login Successfully")
                     navigate(from, { replace: true });
                 } else {
+                    toast.remove('google');
                     toast.error(data.message);
                 }
             })

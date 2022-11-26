@@ -2,6 +2,7 @@ import React, { createContext, useEffect, useState } from 'react';
 
 import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
 import app from '../Firebase/firebase';
+import toast from 'react-hot-toast';
 
 export const mainContext = createContext()
 const auth = getAuth(app);
@@ -22,6 +23,7 @@ const MainContext = ({ children }) => {
                     })
             } else {
                 setUser(null)
+                toast.remove('loading')
             }
         })
         return () => unlink();
