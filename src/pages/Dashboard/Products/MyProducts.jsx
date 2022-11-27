@@ -11,7 +11,11 @@ const MyProducts = () => {
 
     const { data = [], isLoading, refetch } = useQuery({
         queryKey: ['myProducts', user?.email],
-        queryFn: () => fetch(`https://dream-book-server.vercel.app/my-products?email=${user.email}`)
+        queryFn: () => fetch(`https://dream-book-server.vercel.app/my-products?email=${user.email}`, {
+            headers: {
+                authorization: localStorage.getItem('token')
+            }
+        })
             .then(res => res.json())
             .then(data => {
                 return data
@@ -34,7 +38,10 @@ const MyProducts = () => {
             id: 'delete'
         });
         fetch(`https://dream-book-server.vercel.app/products?id=${id}`, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: {
+                authorization: localStorage.getItem('token')
+            }
         })
             .then(res => res.json())
             .then(data => {
@@ -58,7 +65,10 @@ const MyProducts = () => {
             id: 'run'
         })
         fetch(`https://dream-book-server.vercel.app/run-ad?id=${id}`, {
-            method: 'PATCH'
+            method: 'PATCH',
+            headers: {
+                authorization: localStorage.getItem('token')
+            }
         })
             .then(res => res.json())
             .then(data => {

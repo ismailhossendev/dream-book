@@ -24,9 +24,6 @@ const Aside = () => {
                 const image = data.data.display_url;
                 console.log(image, data);
                 axios.put(`https://dream-book-server.vercel.app/upload-profile?email=${user?.email}&profile=${image}`, {
-                    headers: {
-                        authorization: localStorage.getItem('token')
-                    }
                 })
                     .then(res => {
                         toast(res.data.message)

@@ -11,7 +11,11 @@ const MyOrders = () => {
 
     const { data = [], isLoading, refetch } = useQuery({
         queryKey: ['myOrders', user?.email,],
-        queryFn: () => fetch(`https://dream-book-server.vercel.app/booked-products?email=${user.email}`)
+        queryFn: () => fetch(`https://dream-book-server.vercel.app/booked-products?email=${user.email}`, {
+            headers: {
+                authorization: localStorage.getItem('token')
+            }
+        })
             .then(res => res.json())
             .then(data => {
                 return data

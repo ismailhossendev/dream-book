@@ -95,7 +95,7 @@ const ProductCard = ({ product, setShowModal, showModal }) => {
                     disabled={user?.role !== "buyer" || product?.status === "booked"}
                     onClick={() => setShowModal(product)}
                     htmlFor="booking-modal" className="btn btn-warning w-full">
-                    {user?.role === "buyer" && product.status === "Available" ? "Buy Now" : ""} {user?.role === "seller" && "You Are Seller"}{user?.role === "admin" && "You Are Admin"}{product.status === "booked" && "Already Booked"}
+                    {user?.role === "buyer" && product.status === "Available" ? "Buy Now" : ""} {user?.role === "seller" && "You Are Seller"}{user?.role === "admin" && "You Are Admin"}{product.status === "booked" && user.role !== "admin" && "Already Booked"}
                 </label>}
                 {!user && <Link className='btn w-full' to="/login">Login</Link>}
             </div>
