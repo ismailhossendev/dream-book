@@ -6,8 +6,13 @@ This project was Make With  [Create React App](https://github.com/facebook/creat
 ##  Dream Book || old product selling platform
 Live > [Dream Book](https://dream-book-cae89.web.app/)
 
-## Features
+## demo accounts
+Buyer
+email:buyer@buyer.com
+password: 123456
 
+
+## Features
 - user,seller,admin role
 - Selller - only add product,delete,run ad,update profile photo,see all product 
 - Buyer - ony buy product,sell all orders,and pay using strip update profile image
