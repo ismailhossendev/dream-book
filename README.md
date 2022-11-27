@@ -1,9 +1,9 @@
-# Getting Started with ISchools
+# Getting Started with DREAM BOOK
 
 This project was Make With  [Create React App](https://github.com/facebook/create-react-app).
 
 
-##  Dream Book
+##  Dream Book || old product selling platform
 Live > [Dream Book](https://dream-book-cae89.web.app/)
 
 ## Features
