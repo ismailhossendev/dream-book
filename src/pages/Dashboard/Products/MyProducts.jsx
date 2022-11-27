@@ -9,7 +9,7 @@ const MyProducts = () => {
 
 
 
-    const { data = [], isLoading } = useQuery({
+    const { data = [], isLoading, refetch } = useQuery({
         queryKey: ['myProducts', user?.email],
         queryFn: () => fetch(`https://dream-book-server.vercel.app/my-products?email=${user.email}`)
             .then(res => res.json())
@@ -24,6 +24,57 @@ const MyProducts = () => {
     } else {
         toast.remove('dashboard');
     }
+
+    const handleDelete = id => {
+        const agree = window.confirm('Are you sure to delete this product?');
+        if (!agree) {
+            return
+        }
+        toast.loading('Deleting Product...', {
+            id: 'delete'
+        });
+        fetch(`https://dream-book-server.vercel.app/products?id=${id}`, {
+            method: 'DELETE'
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    toast.remove('delete');
+                    toast.success(data.message);
+                    refetch();
+                } else {
+                    toast.remove('delete');
+                    toast.error(data.message);
+                }
+            })
+    }
+
+    const runAd = id => {
+        const agree = window.confirm('Are you sure to run this ad?');
+        if (!agree) {
+            return
+        };
+        toast.loading('Please wait...', {
+            id: 'run'
+        })
+        fetch(`https://dream-book-server.vercel.app/run-ad?id=${id}`, {
+            method: 'PATCH'
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    toast.remove('run');
+                    toast.success(data.message);
+                    refetch();
+                } else {
+                    toast.remove('run');
+                    toast.error(data.message);
+                }
+            })
+    }
+
+
+
     return (
         <div>
             <div className="overflow-x-auto w-full">
@@ -67,7 +118,8 @@ const MyProducts = () => {
                                     {product.status}
                                 </td>
                                 <th>
-                                    <button className="btn btn-outline btn-xs">delete</button>
+                                    <button onClick={() => handleDelete(product._id)} className="btn btn-outline btn-xs mr-2">delete</button>
+                                    <button onClick={() => runAd(product._id)} className="btn btn-outline btn-xs">Ad Run</button>
                                 </th>
                             </tr>)
                         }
