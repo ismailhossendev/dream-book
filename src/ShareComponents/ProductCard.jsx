@@ -5,6 +5,7 @@ import axios from 'axios';
 import './component.css'
 import { mainContext } from '../Contexts/MainContext';
 import toast from 'react-hot-toast';
+import { Link } from 'react-router-dom';
 const ProductCard = ({ product, setShowModal, showModal }) => {
     const { user } = useContext(mainContext);
     const { name, image, location, price, sellerEmail, sellerPhone, newPrice, category, date, usedTime, _id, ads, condition, seller, verified } = product;
@@ -90,12 +91,13 @@ const ProductCard = ({ product, setShowModal, showModal }) => {
                         </p>
                     </div>
                 </div>
-                <label
-                    disabled={user?.role !== "buyer"}
+                {user && <label
+                    disabled={user?.role !== "buyer" || product?.status === "booked"}
                     onClick={() => setShowModal(product)}
                     htmlFor="booking-modal" className="btn btn-warning w-full">
-                    {user?.role === "buyer" ? "Buy Now" : ""} {!user && "Login To Buy"}{user?.role === "seller" && "You Are Seller"}{user?.role === "admin" && "You Are Admin"}
-                </label>
+                    {user?.role === "buyer" && product.status === "Available" ? "Buy Now" : ""} {user?.role === "seller" && "You Are Seller"}{user?.role === "admin" && "You Are Admin"}{product.status === "booked" && "Already Booked"}
+                </label>}
+                {!user && <Link className='btn w-full' to="/login">Login</Link>}
             </div>
         </div>
 

@@ -7,7 +7,11 @@ const AllSellers = () => {
     const { user } = useContext(mainContext);
     const { data = [], isLoading, refetch } = useQuery({
         queryKey: ['all_buyers', user?.email],
-        queryFn: () => fetch(`https://dream-book-server.vercel.app/users?role=buyer`)
+        queryFn: () => fetch(`https://dream-book-server.vercel.app/users?role=buyer`, {
+            headers: {
+                authorization: localStorage.getItem('token')
+            }
+        })
             .then(res => res.json())
             .then(data => {
                 return data
@@ -30,7 +34,10 @@ const AllSellers = () => {
 
 
         fetch(`https://dream-book-server.vercel.app/users?email=${email}`, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: {
+                authorization: localStorage.getItem('token')
+            }
         })
             .then(res => res.json())
             .then(data => {

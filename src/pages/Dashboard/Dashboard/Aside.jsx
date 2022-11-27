@@ -23,7 +23,11 @@ const Aside = () => {
             .then(data => {
                 const image = data.data.display_url;
                 console.log(image, data);
-                axios.put(`https://dream-book-server.vercel.app/upload-profile?email=${user?.email}&profile=${image}`)
+                axios.put(`https://dream-book-server.vercel.app/upload-profile?email=${user?.email}&profile=${image}`, {
+                    headers: {
+                        authorization: localStorage.getItem('token')
+                    }
+                })
                     .then(res => {
                         toast(res.data.message)
                     })
@@ -33,7 +37,7 @@ const Aside = () => {
     return (
         <div className="drawer-side">
             <label htmlFor="admin-menu" className="drawer-overlay"></label>
-            <ul className="menu p-4 w-72 bg-base-100 text-base-content">
+            <ul className="menu p-4 w-72 text-base-content">
                 <div>
                     <div className="mt-8 text-center">
                         <div className="relative">

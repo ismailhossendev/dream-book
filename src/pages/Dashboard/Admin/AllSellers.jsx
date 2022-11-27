@@ -2,12 +2,17 @@ import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
 import { useQuery } from 'react-query';
 import { mainContext } from '../../../Contexts/MainContext';
+import { GoVerified } from 'react-icons/go'
 
 const AllSellers = () => {
     const { user } = useContext(mainContext);
     const { data = [], isLoading, refetch } = useQuery({
         queryKey: ['all_sellers', user?.email],
-        queryFn: () => fetch(`https://dream-book-server.vercel.app/users?role=seller`)
+        queryFn: () => fetch(`https://dream-book-server.vercel.app/users?role=seller`, {
+            headers: {
+                authorization: localStorage.getItem('token')
+            }
+        })
             .then(res => res.json())
             .then(data => {
                 return data
@@ -30,7 +35,10 @@ const AllSellers = () => {
 
 
         fetch(`https://dream-book-server.vercel.app/users?email=${email}`, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: {
+                authorization: localStorage.getItem('token')
+            }
         })
             .then(res => res.json())
             .then(data => {
@@ -55,7 +63,8 @@ const AllSellers = () => {
         fetch(`https://dream-book-server.vercel.app/seller-verify?email=${email}`, {
             method: 'PATCH',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                authorization: localStorage.getItem('token')
             },
         })
             .then(res => res.json())
@@ -100,7 +109,7 @@ const AllSellers = () => {
                                                 </div>
                                             </div>
                                             <div>
-                                                <div className="font-bold">{seller.name}</div>
+                                                <div className="font-bold flex items-center gap-1">{seller.name}{seller.verified && <GoVerified />}</div>
                                             </div>
                                         </div>
                                     </td>

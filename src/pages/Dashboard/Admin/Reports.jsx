@@ -7,7 +7,11 @@ const Reports = () => {
 
     const { data = [], refetch, isLoading } = useQuery({
         queryKey: 'reports',
-        queryFn: () => fetch('https://dream-book-server.vercel.app/reports')
+        queryFn: () => fetch('https://dream-book-server.vercel.app/reports', {
+            headers: {
+                authorization: localStorage.getItem('token')
+            }
+        })
             .then(res => res.json())
             .then(data => {
                 return data
@@ -25,6 +29,9 @@ const Reports = () => {
 
         fetch(`https://dream-book-server.vercel.app/reports?${id && "id=" + id}&reportId=${_id} `, {
             method: 'DELETE',
+            headers: {
+                authorization: localStorage.getItem('token')
+            }
         })
             .then(res => res.json())
             .then(data => {
@@ -65,7 +72,7 @@ const Reports = () => {
                         <tbody>
                             {
                                 data.map((report, index) => {
-                                    return <tr>
+                                    return <tr key={report._id}>
                                         <th>{index + 1}</th>
                                         <td>{report.ProductName}</td>
                                         <td>{report.reporterName}</td>

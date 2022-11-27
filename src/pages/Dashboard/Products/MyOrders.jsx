@@ -1,15 +1,16 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useQuery } from 'react-query';
 import { mainContext } from '../../../Contexts/MainContext';
+import PayModal from './PayModal';
 
 const MyOrders = () => {
     const { user } = useContext(mainContext);
+    const [payModal, setPayModal] = useState(null);
 
 
-
-    const { data = [], isLoading } = useQuery({
-        queryKey: ['myOrders', user?.email],
+    const { data = [], isLoading, refetch } = useQuery({
+        queryKey: ['myOrders', user?.email,],
         queryFn: () => fetch(`https://dream-book-server.vercel.app/booked-products?email=${user.email}`)
             .then(res => res.json())
             .then(data => {
@@ -38,9 +39,9 @@ const MyOrders = () => {
                     </thead>
                     <tbody>
                         {
-                            data.map(product => <tr>
+                            data.map((product, i) => <tr>
                                 <th>
-                                    1
+                                    {i + 1}
                                 </th>
                                 <td>
                                     <div className="flex items-center space-x-3">
@@ -61,13 +62,21 @@ const MyOrders = () => {
                                     {product.status}
                                 </td>
                                 <th>
-                                    <button disabled={product?.status === "paid"} className="btn btn-outline btn-xs">Pay</button>
+                                    <label htmlFor="pay-modal"
+                                        disabled={product?.status === "Paid"}
+                                        onClick={() => setPayModal(product)}
+                                        className="btn btn-outline btn-xs">Pay</label>
                                 </th>
                             </tr>)
                         }
                     </tbody>
                 </table>
             </div>
+            {payModal && <PayModal
+                setPayModal={setPayModal}
+                refetch={refetch}
+                payModal={payModal}
+            />}
         </div>
     );
 };

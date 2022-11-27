@@ -16,11 +16,13 @@ import SellerRoute from "./SellerRoute";
 import AdminRoute from "./AdminRoute";
 import AllSellers from "../pages/Dashboard/Admin/AllSellers";
 import AllBuyers from "../pages/Dashboard/Admin/AllBuyers";
+import Error from "../pages/Error/Error";
 
 export const route = createBrowserRouter([
     {
         path: '/',
         element: <Main />,
+        errorElement: <Error />,
         children: ([
             {
                 path: '/',
@@ -36,7 +38,11 @@ export const route = createBrowserRouter([
             },
             {
                 path: '/category/:id',
-                loader: ({ params }) => fetch(`https://dream-book-server.vercel.app/category/${params.id}`),
+                loader: ({ params }) => fetch(`https://dream-book-server.vercel.app/category/${params.id}`, {
+                    headers: {
+                        authorization: localStorage.getItem('token')
+                    }
+                }),
                 element: <LoginRoute> <ByCategory /></LoginRoute>
             }
         ])
@@ -44,10 +50,11 @@ export const route = createBrowserRouter([
     {
         path: '/dashboard',
         element: <Dashboard />,
+        errorElement: <Error />,
         children: ([
             {
                 path: '/dashboard/reports',
-                element: <Reports />
+                element: <AdminRoute> <Reports /></AdminRoute>
             },
             {
                 path: '/dashboard',
@@ -68,11 +75,11 @@ export const route = createBrowserRouter([
             },
             {
                 path: '/dashboard/sellers',
-                element: <AllSellers />
+                element: <AdminRoute><AllSellers /></AdminRoute>
             },
             {
                 path: '/dashboard/buyers',
-                element: <AllBuyers />
+                element: <AdminRoute><AllBuyers /></AdminRoute>
             }
         ])
     }

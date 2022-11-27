@@ -95,9 +95,9 @@ const MyProducts = () => {
                     </thead>
                     <tbody>
                         {
-                            data.map(product => <tr>
+                            data.map((product, i) => <tr>
                                 <th>
-                                    1
+                                    {i + 1}
                                 </th>
                                 <td>
                                     <div className="flex items-center space-x-3">
@@ -119,7 +119,7 @@ const MyProducts = () => {
                                 </td>
                                 <th>
                                     <button onClick={() => handleDelete(product._id)} className="btn btn-outline btn-xs mr-2">delete</button>
-                                    <button onClick={() => runAd(product._id)} disabled={product.ads} className="btn btn-outline btn-xs">Ad Run</button>
+                                    <button onClick={() => runAd(product._id)} disabled={product.ads || product.status === "Paid"} className="btn btn-outline btn-xs">Ad Run</button>
                                 </th>
                             </tr>)
                         }

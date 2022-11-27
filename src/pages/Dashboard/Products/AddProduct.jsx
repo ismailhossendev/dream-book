@@ -4,6 +4,7 @@ import toast from 'react-hot-toast';
 import { useQuery } from 'react-query';
 import { mainContext } from '../../../Contexts/MainContext';
 import { format } from 'date-fns';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -11,6 +12,7 @@ const AddProduct = () => {
     const { register, handleSubmit, reset } = useForm();
     const { user } = useContext(mainContext);
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
     const { data: categories = [] } = useQuery({
         queryKey: 'categories',
         queryFn: () => fetch('https://dream-book-server.vercel.app/categories')
@@ -60,6 +62,8 @@ const AddProduct = () => {
                 if (data.success) {
                     toast.success(data.message);
                     reset();
+                    navigate('/dashboard/my-products');
+
                 } else {
                     toast.error(data.message);
                 }
