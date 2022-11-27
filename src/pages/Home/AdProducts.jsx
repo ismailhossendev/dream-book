@@ -13,7 +13,7 @@ const AdProducts = () => {
                 return data
             }),
     })
-
+    
     const [showModal, setShowModal] = useState(null);
 
     if (isLoading) {
@@ -29,6 +29,7 @@ const AdProducts = () => {
             <div className="grid grid-cols-1  lg:grid-cols-2 gap-2 ">
                 {
                     data.map(product => <ProductCard
+
                         product={product}
                         showModal={showModal}
                         setShowModal={setShowModal}

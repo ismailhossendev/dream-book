@@ -16,7 +16,7 @@ const BuyCategories = () => {
             <h3 className="text-2xl">Categories to Sell</h3>
             <div className="grid grid-cols-3 gap-10 ">
                 {
-                    Categories.map(category => <Category key={category.id} category={category} />)
+                    Categories.map(category => <Category key={category._id} category={category} />)
                 }
             </div>
         </div>

@@ -1,11 +1,12 @@
 import React from 'react';
 import locationIcon from '../../assets/Icons/location.svg';
-import ratingIcon from '../../assets/Icons/rating.svg';
 import { motion } from 'framer-motion';
+import { FaStar } from "react-icons/fa";
 
 
 const Testimonial = ({ testimonial }) => {
-    const { name, location, reviewText, image, rating } = testimonial;
+    const { name, location, review, image, rating } = testimonial;
+    const restRating = 5 - rating;
     return (
         <motion.div
             whileHover={{ scale: 1.1 }}
@@ -19,11 +20,14 @@ const Testimonial = ({ testimonial }) => {
                     {location}
                 </p>
                 <p className="mt-4 text-sm text-gray-500">
-                    {reviewText}
+                    {review}
                 </p>
                 <div className="mt-8 flex justify-center gap-0.5 text-green-500">
                     {
-                        Array.from({ length: rating }, (_, i) => <img key={i} className='w-5 h-5 rounded-full' src={ratingIcon} alt="" />)
+                        Array.from({ length: rating }, (_, i) => <FaStar />)
+                    }
+                    {
+                        Array.from({ length: restRating }, (_, i) => <FaStar className='text-black' />)
                     }
                 </div>
             </blockquote>

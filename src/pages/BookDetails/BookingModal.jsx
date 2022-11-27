@@ -57,17 +57,16 @@ const BookingModal = ({ setShowModal, data }) => {
                                 <label className="label">
                                     <span className="label-text">Meeting Location?*</span>
                                 </label>
-                                <input type="text" name='address' placeholder="Meeting location for buying this product" className="input input-bordered w-full " />
+                                <input type="text" name='address' placeholder="Meeting location for buying this product" required className="input input-bordered w-full " />
                             </div>
                             <div className="form-control w-full">
                                 <label className="label">
                                     <span className="label-text">Contact Number*</span>
                                 </label>
-                                <input type="number" name="phone" placeholder="0177 44**1044*" className="input input-bordered w-full " />
+                                <input type="number" name="phone" placeholder="0177 44**1044*" required className="input input-bordered w-full " />
                             </div>
                         </div>
                         <input type="submit" disabled={loading} className={`btn w-full ${loading && "loading"}`} />
-                        <button>Seller Not Booked</button>
                     </form>
                 </div>
             </div>

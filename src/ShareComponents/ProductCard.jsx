@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { FaLocationArrow } from "react-icons/fa"
 import { GoVerified, GoLocation, GoMail, GoDeviceMobile } from 'react-icons/go';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import './component.css'
 import { mainContext } from '../Contexts/MainContext';
 import toast from 'react-hot-toast';
@@ -92,9 +91,10 @@ const ProductCard = ({ product, setShowModal, showModal }) => {
                     </div>
                 </div>
                 <label
+                    disabled={user?.role !== "buyer"}
                     onClick={() => setShowModal(product)}
                     htmlFor="booking-modal" className="btn btn-warning w-full">
-                    Book Now
+                    {user?.role === "buyer" ? "Buy Now" : ""} {!user && "Login To Buy"}{user?.role === "seller" && "You Are Seller"}{user?.role === "admin" && "You Are Admin"}
                 </label>
             </div>
         </div>

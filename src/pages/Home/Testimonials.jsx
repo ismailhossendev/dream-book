@@ -1,7 +1,13 @@
 import React from 'react';
-import { testimonials } from '../../data/data';
+import { useQuery } from 'react-query';
 import Testimonial from './Testimonial';
 const Testimonials = () => {
+    const { data = [] } = useQuery({
+        queryKey: 'testimonials',
+        queryFn: () => fetch('https://dream-book-server.vercel.app/reviews')
+            .then(res => res.json())
+    })
+
     return (
         <section className="bg-white">
             <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
@@ -10,15 +16,12 @@ const Testimonials = () => {
                         Read trusted reviews from our customers
                     </h2>
                     <p className="text-gring-offset-warm-gray-500 mx-auto mt-4 max-w-lg">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur
-                        praesentium natus sapiente commodi. Aliquid sunt tempore iste
-                        repellendus explicabo dignissimos placeat, autem harum dolore
-                        reprehenderit quis! Quo totam dignissimos earum.
+                        Read Review from out previews customers with their experience with us.
                     </p>
                 </div>
                 <div className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-16 lg:grid-cols-3">
                     {
-                        testimonials.map(testimonial => <Testimonial testimonial={testimonial} key={testimonial._id} />)
+                        data.map(testimonial => <Testimonial testimonial={testimonial} key={testimonial._id} />)
                     }
                 </div>
             </div>

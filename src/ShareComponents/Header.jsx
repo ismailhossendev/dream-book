@@ -38,7 +38,7 @@ const Header = () => {
                         </>}
                     </ul>
                 </div>
-                <Link to='/' className="btn btn-ghost normal-case text-xl">Dream Book {user?.name}</Link>
+                <Link to='/' className="btn btn-ghost normal-case text-xl">Dream Book</Link>
             </div>
             <div className="navbar-end hidden lg:flex">
                 <ul className="menu menu-horizontal p-0">
