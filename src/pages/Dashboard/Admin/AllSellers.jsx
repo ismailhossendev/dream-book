@@ -1,15 +1,11 @@
 import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
 import { useQuery } from 'react-query';
-import { Link } from 'react-router-dom';
 import { mainContext } from '../../../Contexts/MainContext';
 
 const AllSellers = () => {
     const { user } = useContext(mainContext);
-
-
-
-    const { data = [], isLoading } = useQuery({
+    const { data = [], isLoading, refetch } = useQuery({
         queryKey: ['all_sellers', user?.email],
         queryFn: () => fetch(`https://dream-book-server.vercel.app/users?role=seller`)
             .then(res => res.json())
@@ -18,12 +14,63 @@ const AllSellers = () => {
             }),
     })
     if (isLoading) {
-        return toast.loading('Your Product Is loading...', {
+        return toast.loading('Sellers Is loading...', {
             id: 'dashboard'
         });
     } else {
         toast.remove('dashboard');
     }
+
+    const deleteUser = email => {
+
+        const agree = window.confirm('Are you sure? Delete this user?');
+        if (!agree) {
+            return;
+        }
+
+
+        fetch(`https://dream-book-server.vercel.app/users?email=${email}`, {
+            method: 'DELETE'
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    toast.success(data.message)
+                    refetch();
+                } else {
+                    toast.error(data.message)
+                }
+            })
+    }
+
+    const verified = email => {
+        const agree = window.confirm('Are you sure? Verified this user?');
+        if (!agree) {
+            return;
+        }
+        toast.loading('Verified is loading...', {
+            id: 'verified'
+        });
+
+        fetch(`https://dream-book-server.vercel.app/seller-verify?email=${email}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    toast.remove('verified');
+                    toast.success(data.message)
+                    refetch();
+                } else {
+                    toast.remove('verified');
+                    toast.error(data.message)
+                }
+            })
+    }
+
     return (
         <div>
             <div className="overflow-x-auto w-full">
@@ -61,10 +108,10 @@ const AllSellers = () => {
                                         {seller.email}
                                     </td>
                                     <td>
-                                        {seller.verified ? "Verified" : <button className="btn btn-outline btn-xs">Verify</button>}
+                                        {seller.verified ? "Verified" : <button onClick={() => verified(seller.email)} className="btn btn-outline btn-xs">Verify</button>}
                                     </td>
                                     <th>
-                                        <button disabled={seller?.status === "paid"} className="btn btn-outline btn-xs">Delete</button>
+                                        <button onClick={() => deleteUser(seller.email)} className="btn btn-outline btn-xs">Delete</button>
                                     </th>
                                 </tr>
                             })

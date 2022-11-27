@@ -1,29 +1,49 @@
 import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
 import { useQuery } from 'react-query';
-import { Link } from 'react-router-dom';
 import { mainContext } from '../../../Contexts/MainContext';
 
-const AllBuyers = () => {
+const AllSellers = () => {
     const { user } = useContext(mainContext);
-
-
-
-    const { data = [], isLoading } = useQuery({
-        queryKey: ['myOrders', user?.email],
-        queryFn: () => fetch(`https://dream-book-server.vercel.app/booked-products?email=${user.email}`)
+    const { data = [], isLoading, refetch } = useQuery({
+        queryKey: ['all_buyers', user?.email],
+        queryFn: () => fetch(`https://dream-book-server.vercel.app/users?role=buyer`)
             .then(res => res.json())
             .then(data => {
                 return data
             }),
     })
     if (isLoading) {
-        return toast.loading('Your Product Is loading...', {
+        return toast.loading('Sellers Is loading...', {
             id: 'dashboard'
         });
     } else {
         toast.remove('dashboard');
     }
+
+    const deleteUser = email => {
+
+        const agree = window.confirm('Are you sure? Delete this user?');
+        if (!agree) {
+            return;
+        }
+
+
+        fetch(`https://dream-book-server.vercel.app/users?email=${email}`, {
+            method: 'DELETE'
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    toast.success(data.message)
+                    refetch();
+                } else {
+                    toast.error(data.message)
+                }
+            })
+    }
+
+
     return (
         <div>
             <div className="overflow-x-auto w-full">
@@ -33,38 +53,35 @@ const AllBuyers = () => {
                         <tr>
                             <th></th>
                             <th>Name</th>
-                            <th>PRICE</th>
-                            <th>STATUS</th>
+                            <th>email</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         {
-                            data.map(product => {
-
+                            data.map((seller, i) => {
+                                seller.name = seller.firstName + ' ' + seller.lastName
                                 return <tr>
                                     <th>
-                                        1
+                                        {i + 1}
                                     </th>
                                     <td>
                                         <div className="flex items-center space-x-3">
                                             <div className="avatar">
                                                 <div className="mask mask-squircle w-12 h-12">
-                                                    <img src={product.image} alt="Avatar Tailwind CSS Component" />
+                                                    <img src={seller.profile} alt="Avatar Tailwind CSS Component" />
                                                 </div>
                                             </div>
                                             <div>
-                                                <div className="font-bold">{product.name}</div>
+                                                <div className="font-bold">{seller.name}</div>
                                             </div>
                                         </div>
                                     </td>
                                     <td>
-                                        BDT {product.price}
-                                    </td>
-                                    <td>
-                                        {product.status}
+                                        {seller.email}
                                     </td>
                                     <th>
-                                        <button disabled={product?.status === "paid"} className="btn btn-outline btn-xs">Pay</button>
+                                        <button onClick={() => deleteUser(seller.email)} className="btn btn-outline btn-xs">Delete</button>
                                     </th>
                                 </tr>
                             })
@@ -76,4 +93,4 @@ const AllBuyers = () => {
     );
 };
 
-export default AllBuyers;
+export default AllSellers;

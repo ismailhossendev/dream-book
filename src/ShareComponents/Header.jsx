@@ -38,16 +38,23 @@ const Header = () => {
             </div>
             <div className="navbar-end hidden lg:flex">
                 <ul className="menu menu-horizontal p-0">
+                    {/* all time */}
                     <Link to='/' className='btn btn-ghost'>Home</Link>
+                    {/* after login */}
+                    {user?.email ? <>
+                        <Link to='/dashboard' className='btn btn-ghost'>Dashboard</Link>
+                        <button onClick={handleLogOut} className='btn btn-primary'>LogOut</button >
+                    </> : <>
+                        <Link to='/register' className='btn btn-ghost'>Register</Link>
+                        <Link to='/login' className='btn btn-accent'>Login</Link>
 
-                    <Link to='/register' className='btn btn-ghost'>Register</Link>
-                    <Link to='/login' className='btn btn-accent'>Login</Link>
-
-                    <Link to='/dashboard' className='btn btn-ghost'>Account</Link>
-                    <button onClick={handleLogOut} className='btn btn-primary'>LogOut</button >
+                    </>}
                 </ul>
             </div>
-            <label htmlFor="admin-menu" className="btn btn-primary drawer-button lg:hidden">Open drawer</label>
+            <div className="navbar-end lg:hidden">
+                <label htmlFor="admin-menu" className="btn btn-primary drawer-button lg:hidden"><svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+                </label>
+            </div>
         </div>
     );
 };
