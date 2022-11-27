@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
 import { useQuery } from 'react-query';
-import { Link } from 'react-router-dom';
 import { mainContext } from '../../../Contexts/MainContext';
 
 const MyOrders = () => {

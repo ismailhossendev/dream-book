@@ -1,13 +1,16 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { mainContext } from '../../../Contexts/MainContext';
 import WithGoogle from '../../../ShareComponents/WithGoogle';
 
 const Register = () => {
     const { emailPassword } = useContext(mainContext);
     const { register, handleSubmit } = useForm();
+    const location = useLocation();
+    const navigate = useNavigate();
+    const from = location.state?.from || '/';
 
     const handleRegister = (data) => {
         toast.loading("Registering...", {
@@ -44,6 +47,8 @@ const Register = () => {
                 if (data.success) {
                     toast.remove("register");
                     toast.success("Registered Successfully")
+                    navigate(from, { replace: true });
+
                 } else {
                     toast.remove("register");
                     toast.error(data.message);

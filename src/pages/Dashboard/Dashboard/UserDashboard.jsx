@@ -5,13 +5,16 @@ import MyOrders from '../Products/MyOrders';
 import MyProducts from '../Products/MyProducts';
 
 const UserDashboard = () => {
-    const { user } = useContext(mainContext);
+    const { user,loading } = useContext(mainContext);
     const location = useLocation();
     if (user?.role === "seller") {
         return <MyProducts />
     }
     if (user?.role === "buyer") {
         return <MyOrders />
+    }
+    if(loading){
+        return 
     }
 
     return <Navigate to='/login' state={{ from: location }} replace />

@@ -3,10 +3,31 @@ import { NavLink } from 'react-router-dom';
 import { mainContext } from '../../../Contexts/MainContext';
 import { GoVerified } from 'react-icons/go'
 import { MdChangeCircle } from 'react-icons/md';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 const Aside = () => {
     const { user, loading } = useContext(mainContext);
     if (loading) {
         return <div>Loading...</div>
+    }
+    const handleImageUpdate = (e) => {
+        const img = e.target.files[0];
+        const formData = new FormData()
+        formData.append('image', img);
+        const url = `https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_API_KEY}`
+        fetch(url, {
+            method: "POST",
+            body: formData
+        })
+            .then(res => res.json())
+            .then(data => {
+                const image = data.data.display_url;
+                console.log(image, data);
+                axios.put(`https://dream-book-server.vercel.app/upload-profile?email=${user?.email}&profile=${image}`)
+                    .then(res => {
+                        toast(res.data.message)
+                    })
+            })
     }
     return (
         <div className="drawer-side">
@@ -15,11 +36,11 @@ const Aside = () => {
                 <div>
                     <div className="mt-8 text-center">
                         <div className="relative">
-                            <img src={user?.profile ? user?.profile : "https://i.ibb.co/8cSQDx3/profile.png"} alt="" className="m-auto h-10 w-10 rounded-full object-cover lg:h-28 lg:w-28" />
-                            <label className="text-3xl absolute right-1/3 bottom-2 cursor-pointer" htmlFor="edit" title='change profile image'>
+                            <img src={user?.profile ? user?.profile : "https://i.ibb.co/8cSQDx3/profile.png"} alt="" className="m-auto h-10 object-cover w-10 rounded-full object-cover lg:h-28 lg:w-28" />
+                            <label className="text-3xl absolute right-[70px] bottom-2 cursor-pointer" htmlFor="edit" title='change profile image'>
                                 <MdChangeCircle />
                             </label>
-                            <input type="file" id="edit" className="hidden" />
+                            <input onChange={handleImageUpdate} type="file" id="edit" className="hidden" />
                         </div>
                         <h5 className="mt-4 hidden text-xl font-semibold text-gray-600 lg:flex justify-center items-center gap-1 dark:text-gray-300">{user.name}{user.verified && <GoVerified />}</h5>
                         <span className="hidden text-gray-400 lg:block">{user?.role}</span>

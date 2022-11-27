@@ -4,7 +4,6 @@ import Login from "../pages/Accounts/Login/Login";
 import Register from "../pages/Accounts/Register/Register";
 import ByCategory from "../pages/ByCategory/ByCategory";
 import Reports from "../pages/Dashboard/Admin/Reports";
-import Users from "../pages/Dashboard/Admin/Users";
 import Dashboard from "../Layout/Dashboard";
 import AddProduct from "../pages/Dashboard/Products/AddProduct";
 import MyProducts from "../pages/Dashboard/Products/MyProducts";
@@ -15,6 +14,8 @@ import LoginRoute from "./LoginRoute";
 import BuyerRoute from "./BuyerRoute";
 import SellerRoute from "./SellerRoute";
 import AdminRoute from "./AdminRoute";
+import AllSellers from "../pages/Dashboard/Admin/AllSellers";
+import AllBuyers from "../pages/Dashboard/Admin/AllBuyers";
 
 export const route = createBrowserRouter([
     {
@@ -55,10 +56,6 @@ export const route = createBrowserRouter([
             {
                 path: '/dashboard/my-products',
                 element: <SellerRoute><MyProducts /></SellerRoute>
-            },
-            {
-                path: '/dashboard/users',
-                element: <Users />
             }
             ,
             {
@@ -68,6 +65,14 @@ export const route = createBrowserRouter([
             {
                 path: '/dashboard/my-orders',
                 element: <BuyerRoute><MyOrders /></BuyerRoute>
+            },
+            {
+                path: '/dashboard/all-sellers',
+                element: <AllSellers />
+            },
+            {
+                path: '/dashboard/all-buyers',
+                element: <AllBuyers />
             }
         ])
     }
