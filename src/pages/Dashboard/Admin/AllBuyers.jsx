@@ -3,7 +3,7 @@ import toast from 'react-hot-toast';
 import { useQuery } from 'react-query';
 import { mainContext } from '../../../Contexts/MainContext';
 
-const AllSellers = () => {
+const AllBuyers = () => {
     const { user } = useContext(mainContext);
     const { data = [], isLoading, refetch } = useQuery({
         queryKey: ['all_buyers', user?.email],
@@ -100,4 +100,4 @@ const AllSellers = () => {
     );
 };
 
-export default AllSellers;
+export default AllBuyers;
