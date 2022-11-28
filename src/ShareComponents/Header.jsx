@@ -27,6 +27,7 @@ const Header = () => {
                     <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
                         {/* all time */}
                         <Link to='/' className='btn btn-ghost'>Home</Link>
+                        <Link to='/blog' className='btn btn-ghost'>Blog</Link>
                         {/* after login */}
                         {user?.email ? <>
                             <Link to='/dashboard' className='btn btn-ghost'>Dashboard</Link>
@@ -44,6 +45,7 @@ const Header = () => {
                 <ul className="menu menu-horizontal p-0">
                     {/* all time */}
                     <Link to='/' className='btn btn-ghost'>Home</Link>
+                    <Link to='/blog' className='btn btn-ghost'>Blog</Link>
                     {/* after login */}
                     {user?.email ? <>
                         <Link to='/dashboard' className='btn btn-ghost'>Dashboard</Link>

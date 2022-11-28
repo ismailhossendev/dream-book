@@ -17,6 +17,7 @@ import AdminRoute from "./AdminRoute";
 import AllSellers from "../pages/Dashboard/Admin/AllSellers";
 import AllBuyers from "../pages/Dashboard/Admin/AllBuyers";
 import Error from "../pages/Error/Error";
+import Blog from "../pages/Blog/Blog";
 
 export const route = createBrowserRouter([
     {
@@ -44,6 +45,10 @@ export const route = createBrowserRouter([
                     }
                 }),
                 element: <LoginRoute> <ByCategory /></LoginRoute>
+            },
+            {
+                path: '/blog',
+                element: <Blog />
             }
         ])
     },

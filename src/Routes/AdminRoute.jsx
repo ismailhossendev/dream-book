@@ -3,7 +3,7 @@ import toast from 'react-hot-toast';
 import { Navigate, useLocation } from 'react-router-dom';
 import { mainContext } from '../Contexts/MainContext';
 
-const LoginRoute = ({ children }) => {
+const AdminRoute = ({ children }) => {
     const { user, loading } = useContext(mainContext);
     const location = useLocation();
     if (loading) {
@@ -21,4 +21,4 @@ const LoginRoute = ({ children }) => {
     return <Navigate to='/login' state={{ from: location }} replace />
 };
 
-export default LoginRoute;
+export default AdminRoute;
