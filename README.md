@@ -11,6 +11,14 @@ Buyer
 email:buyer@buyer.com
 password: 123456
 
+Admin
+email:admin@admin.com
+password: admin123456
+
+seller 
+email: seller2@seller.com 
+password: 123456
+
 
 ## Features
 - user,seller,admin role
